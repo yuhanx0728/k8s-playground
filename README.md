@@ -14,3 +14,8 @@ exit // inside hello-pod
 kubectl logs hello-pod
 kubectl delete -f pod.yml
 ```
+## Working with deployment
+```
+kubectl apply -f deploy.yml
+kubectl delete -f deploy.yml
+```
