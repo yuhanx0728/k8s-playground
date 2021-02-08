@@ -17,5 +17,9 @@ kubectl delete -f pod.yml
 ## Working with deployment
 ```
 kubectl apply -f deploy.yml
+kubectl get deploy hello-deploy
+kubectl describe deploy hello-deploy
+kubectl get rs // ReplicaSet
+kubectl describe rs // ReplicaSet
 kubectl delete -f deploy.yml
 ```
