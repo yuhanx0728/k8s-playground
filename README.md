@@ -49,3 +49,23 @@ kubectl get deploy hello-deploy
 kubectl rollout status deployment hello-deploy
 kubectl delete -f deploy.yml
 ```
+## Imperative way to create a service (don't do this)
+```
+kubectl apply -f deploy.yml
+// imperatively create a service
+kubectl expose deployment hello-deploy --name=hello-svc --target-port=8080 --type=NodePort
+// website deployed and available
+kubectl describe svc hello-svc
+kubectl delete svc hello-svc
+```
+## Declarative way to create a service (do this)
+```
+kubectl apply -f svc.yml
+kubectl get svc hello-svc
+kubectl describe svc hello-svc
+// get Endpoint objects
+kubectl get ep hello-svc
+kubectl describe ep hello-svc
+kubectl delete -f deploy.yml
+kubectl delete -f svc.yml
+```
