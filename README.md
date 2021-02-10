@@ -150,3 +150,14 @@ nslookup kubernetes
  */
 kubectl delete pod -n kube-system  -l k8s-app=kube-dns
 ```
+## Persistent Volume
+```
+/* Use GKE instead of Docker for this exercise.
+ * Create a SSD disk instance with Google Compute Engine of 10GB,
+ * and make sure it is in the same zone as the k8s cluster and name it uber-disk.
+ * Run 'gcloud compute disks list' to check that disk is set up.
+ */
+kubectl apply -f gke-pv.yml
+kubectl get pv pv1
+kubectl describe pv pv1
+```
