@@ -161,3 +161,33 @@ kubectl apply -f gke-pv.yml
 kubectl get pv pv1
 kubectl describe pv pv1
 ```
+## Persistent Volume Claim
+```
+kubectl apply -f gke-pvc.yml
+kubectl get pvc pvc1
+kubectl describe pvc pvc1
+
+\\ create a new pod to be binded with pv1
+kubectl apply -f volpod.yml
+kubectl describe pod volpod
+
+kubectl delete pods volpod
+kubectl delete pvc pvc1
+kubectl delete pv pv1
+```
+## Storage Class
+```
+kubectl apply -f google-sc.yml
+kubectl get sc slow
+kubectl describe sc slow
+
+kubectl apply -f google-pvc.yml
+kubectl get pvc pv-ticket
+
+kubectl apply -f google-pod.yml
+
+kubectl delete pod class-pod
+kubectl delete pvc pv-ticket
+kubectl delete sc slow
+\\ go to compute engine console to delete the external storage instance
+```
