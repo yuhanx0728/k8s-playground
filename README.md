@@ -239,4 +239,25 @@ kubectl get sts --watch
 // or
 kubectl apply -f app.yml
 kubectl get sts -watch
+
+// testing peer discovery
+kubectl apply -f jump-pod.yml
+kubectl exec -it jump-pod -- bash
+dig SRV tkb-sts.default.svc.cluster.local // or dullahan.default
+
+// in app.yml, change replica to 2 and apply to see how sts scales down
+// then change it back and confirm pvc is mounted correctly to pod
+kubectl describe pvc www-tkb-sts-2 | Select-String Mounted
+
+// rolling update
+kubectl explain sts.spec.updateStrategy
+
+// testing failure
+kubectl delete pod tkb-sts-0
+kubectl get pods --watch
+
+// deleting sts
+kubectl scale sts tkb-sts --replicas=0
+kubectl get sts tkb-sts
+kubectl delete sts tkb-sts
 ```
