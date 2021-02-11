@@ -224,3 +224,19 @@ kubectl describe pod envpod-startup
 kubectl apply -f cmpod.yml
 kubectl exec volpod -- ls /etc/name
 ```
+## StatefulSet
+```
+// first enable CSI driver on GKE console, otherwise STS won't run
+kubectl apply -f gcp-sc.yml
+kubectl get sc
+
+kubectl apply -f headless-svc.yml
+kubectl get svc
+
+kubectl apply -f sts.yml
+kubectl get sts --watch
+
+// or
+kubectl apply -f app.yml
+kubectl get sts -watch
+```
