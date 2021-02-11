@@ -167,7 +167,7 @@ kubectl apply -f gke-pvc.yml
 kubectl get pvc pvc1
 kubectl describe pvc pvc1
 
-\\ create a new pod to be binded with pv1
+// create a new pod to be binded with pv1
 kubectl apply -f volpod.yml
 kubectl describe pod volpod
 
@@ -189,5 +189,38 @@ kubectl apply -f google-pod.yml
 kubectl delete pod class-pod
 kubectl delete pvc pv-ticket
 kubectl delete sc slow
-\\ go to compute engine console to delete the external storage instance
+// go to compute engine console to delete the external storage instance
+```
+## ConfigMap (imperative)
+```
+// from command line literal values 
+kubectl create configmap testmap1 --from-literal shortname=msb.com --from-literal longname=magicsandbox.com
+kubectl describe cm testmap1
+kubectl get cm testmap1 -o yaml
+
+// from file
+kubectl create cm testmap2 --from-file cmfile.txt
+kubectl describe cm testmap2
+
+kubectl get cm
+```
+## ConfigMap (declarative)
+```
+kubectl apply -f multimap.yml
+kubectl apply -f singlemap.yml
+
+/* Use ConfigMap as environment variables  */
+kubectl apply -f envpod.yml
+kubectl exec -it envpod -- sh
+echo $FIRSTNAME $LASTNAME
+kubectl exec envpod -- env
+
+/* Use ConfigMap in container startup commands */
+kubectl apply -f envpod-startup.yml
+kubectl logs envpod-startup -c ctr1
+kubectl describe pod envpod-startup
+
+/* Use ConfigMap with volumes */
+kubectl apply -f cmpod.yml
+kubectl exec volpod -- ls /etc/name
 ```
